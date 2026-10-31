@@ -2,7 +2,7 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Anesthesia & Resus Master Hub (Clinical Edition)</title>
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -11,7 +11,35 @@
   <!-- Google Fonts: Prompt -->
   <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Prompt', sans-serif; background-color: #0e1726; color: #f1f5f9; }
+    :root {
+      --app-bg: #0e1726;
+      --app-surface: #0f172a;
+      --app-surface-raised: #111c30;
+      --app-surface-muted: #020617;
+      --app-text: #f1f5f9;
+      --app-muted: #94a3b8;
+      --app-border: #1e293b;
+      --app-accent: #22d3ee;
+      --app-accent-strong: #0891b2;
+      --app-focus: #fbbf24;
+      --app-font-scale: 1;
+    }
+    body { font-family: 'Prompt', sans-serif; background-color: var(--app-bg); color: var(--app-text); font-size: calc(1rem * var(--app-font-scale)); }
+    body[data-theme="light"] { --app-bg:#f4f7fb; --app-surface:#ffffff; --app-surface-raised:#f8fafc; --app-surface-muted:#edf2f7; --app-text:#172033; --app-muted:#475569; --app-border:#cbd5e1; --app-accent:#0f766e; --app-accent-strong:#0f766e; --app-focus:#b45309; }
+    body[data-theme="ocean"] { --app-bg:#061923; --app-surface:#082b3a; --app-surface-raised:#0b3649; --app-surface-muted:#041118; --app-text:#e6fffb; --app-muted:#a5d8d1; --app-border:#155e75; --app-accent:#2dd4bf; --app-accent-strong:#0f766e; --app-focus:#fcd34d; }
+    body[data-theme="indigo"] { --app-bg:#15132b; --app-surface:#201d40; --app-surface-raised:#292450; --app-surface-muted:#100d24; --app-text:#f5f3ff; --app-muted:#c4b5fd; --app-border:#4c3f91; --app-accent:#a78bfa; --app-accent-strong:#7c3aed; --app-focus:#fbbf24; }
+    body[data-theme="sage"] { --app-bg:#10201b; --app-surface:#16332a; --app-surface-raised:#1c4035; --app-surface-muted:#0b1713; --app-text:#ecfdf5; --app-muted:#a7cbbd; --app-border:#356857; --app-accent:#6ee7b7; --app-accent-strong:#059669; --app-focus:#fde68a; }
+    body[data-theme="light"] .bg-slate-950, body[data-theme="light"] .bg-slate-950\/80 { background-color: var(--app-surface-muted) !important; }
+    body[data-theme="light"] .bg-slate-900, body[data-theme="light"] .bg-slate-900\/95, body[data-theme="light"] .bg-slate-900\/80 { background-color: var(--app-surface) !important; }
+    body[data-theme="light"] .bg-slate-800 { background-color: #e2e8f0 !important; }
+    body[data-theme="light"] .text-white, body[data-theme="light"] .text-slate-100, body[data-theme="light"] .text-slate-200 { color: var(--app-text) !important; }
+    body[data-theme="light"] .text-slate-300, body[data-theme="light"] .text-slate-400, body[data-theme="light"] .text-slate-500 { color: var(--app-muted) !important; }
+    body[data-theme="light"] .border-slate-800, body[data-theme="light"] .border-slate-700 { border-color: var(--app-border) !important; }
+    body[data-theme="ocean"] .bg-slate-950, body[data-theme="indigo"] .bg-slate-950, body[data-theme="sage"] .bg-slate-950 { background-color: var(--app-surface-muted) !important; }
+    body[data-theme="ocean"] .bg-slate-900, body[data-theme="indigo"] .bg-slate-900, body[data-theme="sage"] .bg-slate-900 { background-color: var(--app-surface) !important; }
+    body[data-theme="ocean"] .bg-slate-800, body[data-theme="indigo"] .bg-slate-800, body[data-theme="sage"] .bg-slate-800 { background-color: var(--app-surface-raised) !important; }
+    body[data-theme="ocean"] .border-slate-800, body[data-theme="indigo"] .border-slate-800, body[data-theme="sage"] .border-slate-800 { border-color: var(--app-border) !important; }
+    body[data-theme="ocean"] .text-slate-400, body[data-theme="indigo"] .text-slate-400, body[data-theme="sage"] .text-slate-400, body[data-theme="ocean"] .text-slate-500, body[data-theme="indigo"] .text-slate-500, body[data-theme="sage"] .text-slate-500 { color: var(--app-muted) !important; }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     ::-webkit-scrollbar { width: 6px; height: 6px; }
@@ -20,6 +48,40 @@
     ::-webkit-scrollbar-thumb:hover { background: #475569; }
     .nav-btn.active { color: #38bdf8; font-weight: 700; border-bottom: 2px solid #38bdf8; }
     .nav-link.active { background-color: #1e293b; color: #38bdf8; font-weight: 700; border-left: 4px solid #38bdf8; }
+    .nav-link.active, .nav-btn.active { color: var(--app-accent) !important; border-color: var(--app-accent) !important; }
+    .app-accent { color: var(--app-accent); }
+    .app-accent-bg { background-color: var(--app-accent-strong); }
+    .theme-control { min-height: 2.25rem; }
+    .clinical-card { background: var(--app-surface); background: color-mix(in srgb, var(--app-surface) 92%, transparent); border: 1px solid var(--app-border); }
+    .status-evidence { border-left: 4px solid #38bdf8; }
+    .status-local { border-left: 4px solid #f59e0b; }
+    .status-legacy { border-left: 4px solid #a78bfa; }
+    .status-critical { border-left: 4px solid #fb7185; }
+    .clinical-grid > * { min-width: 0; }
+    .section-anchor { scroll-margin-top: 6rem; }
+    .details-summary { cursor: pointer; list-style: none; }
+    .details-summary::-webkit-details-marker { display: none; }
+    .details-summary:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible { outline: 3px solid var(--app-focus); outline-offset: 3px; }
+    .search-result { border-left: 3px solid var(--app-accent); }
+    .mobile-more-panel { max-height: min(72vh, 34rem); overflow-y: auto; }
+    @media (max-width: 767px) {
+      body { padding-bottom: 8.25rem; }
+      main { padding: 0.75rem !important; }
+      .mobile-compact { display: none; }
+      .mobile-action { min-height: 3.8rem; }
+      .mobile-bottom-nav { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.25rem; padding: 0.35rem 0.45rem calc(0.35rem + env(safe-area-inset-bottom)); }
+      .mobile-bottom-nav .nav-btn { min-height: 3.45rem; border-radius: 0.75rem; justify-content: center; }
+      .mobile-bottom-nav .nav-btn.active { background: color-mix(in srgb, var(--app-accent) 14%, transparent); border-bottom: 0; }
+      .mobile-gas-grid { grid-template-columns: 1fr !important; }
+      .mobile-table-card { min-width: 0 !important; overflow: visible !important; }
+      .mobile-table-card table, .mobile-table-card tbody, .mobile-table-card tr, .mobile-table-card td { display: block; width: 100%; }
+      .mobile-table-card thead { display: none; }
+      .mobile-table-card tr { padding: 0.75rem 0; border-bottom: 1px solid var(--app-border); }
+      .mobile-table-card tr:last-child { border-bottom: 0; }
+      .mobile-table-card td { padding: 0.15rem 0; }
+      .mobile-table-card td::before { content: attr(data-label); color: var(--app-muted); font-size: 0.7rem; display: block; }
+    }
+    @media print { body { background:#fff !important; color:#000 !important; } aside, header, nav, #drugModal, .no-print { display:none !important; } .tab-content.hidden { display:block !important; } .clinical-card, .bg-slate-900 { border:1px solid #bbb !important; background:#fff !important; color:#000 !important; break-inside:avoid; } }
     input[type="number"]::-webkit-inner-spin-button,
     input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
   </style>
@@ -48,8 +110,8 @@
       <button onclick="switchTab('premed-guide')" class="nav-link w-full flex items-center space-x-3 px-3 py-3 rounded-xl hover:bg-slate-800 transition text-left" data-target="premed-guide">
         <i class="fa-solid fa-clock-rotate-left text-purple-400 w-5"></i><span>5. Pre-Med & Holding</span>
       </button>
-      <button onclick="switchTab('crisis-protocol')" class="nav-link w-full flex items-center space-x-3 px-3 py-3 rounded-xl hover:bg-slate-800 transition text-left" data-target="crisis-protocol">
-        <i class="fa-solid fa-triangle-exclamation text-rose-400 w-5"></i><span>6. Crisis Protocols</span>
+      <button onclick="switchTab('gas-monitoring')" class="nav-link w-full flex items-center space-x-3 px-3 py-3 rounded-xl hover:bg-slate-800 transition text-left" data-target="gas-monitoring">
+        <i class="fa-solid fa-wind text-teal-400 w-5"></i><span>6. ก๊าซ & ผสมยา</span>
       </button>
     </nav>
   </aside>
@@ -82,11 +144,33 @@
         <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-500 text-xs"></i>
         <input type="text" id="globalSearch" placeholder="ค้นหายา/ข้อบ่งชี้..." onkeyup="filterGlobal()" class="w-full pl-8 pr-3 py-1.5 bg-slate-950 text-slate-100 rounded-xl text-xs border border-slate-800 focus:border-cyan-400 outline-none">
       </div>
+
+      <div class="hidden xl:flex items-center gap-1.5 bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs">
+        <label for="themePicker" class="sr-only">เลือกชุดสี</label>
+        <i class="fa-solid fa-palette app-accent ml-1" aria-hidden="true"></i>
+        <select id="themePicker" onchange="setTheme(this.value)" class="theme-control bg-transparent text-slate-200 rounded-lg px-1 outline-none" aria-label="เลือกชุดสี">
+          <option value="dark">เข้ม</option>
+          <option value="light">สว่าง</option>
+          <option value="ocean">Ocean</option>
+          <option value="indigo">Indigo</option>
+          <option value="sage">Sage</option>
+        </select>
+        <button type="button" onclick="changeFontScale(-0.05)" class="theme-control px-2 rounded-lg hover:bg-slate-800" aria-label="ลดขนาดตัวอักษร">A−</button>
+        <button type="button" onclick="changeFontScale(0.05)" class="theme-control px-2 rounded-lg hover:bg-slate-800" aria-label="เพิ่มขนาดตัวอักษร">A+</button>
+      </div>
+      <button type="button" onclick="toggleQuickTools()" class="xl:hidden w-10 h-10 rounded-xl bg-slate-950 border border-slate-800 app-accent flex items-center justify-center shrink-0" aria-label="ค้นหาและเปลี่ยนโหมดแสง" aria-expanded="false" id="quickToolsButton"><i class="fa-solid fa-sun"></i></button>
     </div>
   </header>
 
   <!-- Main Content Container -->
   <main class="p-4 max-w-7xl mx-auto space-y-6 flex-grow w-full">
+
+    <div id="quickToolsPanel" class="hidden xl:hidden clinical-card rounded-2xl p-3 space-y-3 text-xs no-print" aria-label="ค้นหาและการแสดงผล">
+      <div class="flex items-center justify-between"><span class="font-bold app-accent"><i class="fa-solid fa-sliders mr-1"></i>ค้นหาและการแสดงผล</span><button type="button" onclick="toggleQuickTools()" class="px-3 py-2 rounded-xl bg-slate-800" aria-label="ปิด">ปิด</button></div>
+      <label for="mobileSearch" class="block text-slate-400">ค้นหายา / ข้อบ่งชี้ / ก๊าซ</label>
+      <input id="mobileSearch" type="search" placeholder="เช่น propofol, sevoflurane, ผสมยา" oninput="syncMobileSearch(this.value)" class="w-full p-3 rounded-xl bg-slate-950 border border-slate-700 text-slate-100 text-base outline-none">
+      <div class="grid grid-cols-2 gap-3"><label class="text-slate-400">โหมดแสง/สี<select id="quickThemePicker" onchange="setTheme(this.value)" class="mt-1 w-full p-3 rounded-xl bg-slate-950 border border-slate-700 text-slate-100 text-base"><option value="dark">มืด</option><option value="light">สว่าง</option><option value="ocean">Ocean</option><option value="indigo">Indigo</option><option value="sage">Sage</option></select></label><div class="text-slate-400">ขนาดตัวอักษร<div class="grid grid-cols-2 gap-2 mt-1"><button type="button" onclick="changeFontScale(-0.05)" class="p-3 rounded-xl bg-slate-950 border border-slate-700 text-slate-100">A−</button><button type="button" onclick="changeFontScale(0.05)" class="p-3 rounded-xl bg-slate-950 border border-slate-700 text-slate-100">A+</button></div></div></div>
+    </div>
 
     <!-- Disclaimer Banner -->
     <div class="bg-amber-950/60 border-l-4 border-amber-500 p-3 rounded-r-xl shadow-sm flex items-start space-x-3 text-xs text-amber-200">
@@ -95,6 +179,8 @@
         <span class="font-bold">Medical Disclaimer:</span> เครื่องมือนี้จัดทำขึ้นเพื่อสนับสนุนข้อมูลทางวิสัญญีวิทยาและการกู้ชีพ โปรดตรวจสอบขนาดยา ความเข้มข้น และสภาพผู้ป่วยก่อนใช้จริงเสมอ
       </div>
     </div>
+
+    <div id="clinicalSearchResults" class="hidden clinical-card rounded-2xl p-3 text-xs space-y-2 section-anchor" aria-live="polite"></div>
 
     <!-- ================================================================= -->
     <!-- TAB 1: PATIENT DRUG CALCULATOR (ADULT & PEDIATRIC SEPARATED) -->
@@ -424,7 +510,8 @@
           <h2 class="text-lg font-bold text-slate-100 flex items-center space-x-2">
             <i class="fa-solid fa-capsules text-emerald-400"></i><span>คลังข้อมูลยาฉบับสมบูรณ์ (38 รายการ)</span>
           </h2>
-          <p class="text-xs text-slate-400">คลิกการ์ดยาเพื่อเปิด Modal แสดงข้อมูลอย่างละเอียด</p>
+           <p class="text-xs text-slate-400">คลิกการ์ดยาเพื่อเปิด Modal แสดงข้อมูลอย่างละเอียด</p>
+           <p class="text-[10px] text-amber-300 mt-1"><i class="fa-solid fa-circle-info mr-1"></i>ตรวจพบข้อมูลยาเดิม 42 รายการ (ข้อความหัวข้อเดิม “38 รายการ” ถูกเก็บไว้เพื่อไม่ลบข้อมูลเดิม); ทุกการคำนวณปริมาตรต้องยืนยันกับ stock และ formulary ของหน่วยงาน</p>
         </div>
         <!-- Class Filter Chips -->
         <div class="flex flex-wrap gap-1 text-xs no-scrollbar overflow-x-auto py-1" id="drugFilterChips">
@@ -563,6 +650,101 @@
       </div>
     </section>
 
+    <!-- ================================================================= -->
+    <section id="sec-gas-monitoring" class="tab-content space-y-4 hidden section-anchor">
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
+        <div><h2 class="text-lg font-bold text-slate-100"><i class="fa-solid fa-wind text-teal-400 mr-2"></i>6. ก๊าซดมสลบ & เครื่องช่วยผสมยา</h2><p class="text-xs text-slate-400 mt-1">ใส่ตัวเลขแล้วผลลัพธ์เปลี่ยนทันที — ต้องตรวจฉลากยา, ความเข้มข้น, route และ protocol ของหน่วยงานก่อนเตรียม/ให้ยา</p></div>
+        <span class="text-[10px] rounded-full px-3 py-1 bg-amber-950 text-amber-200 border border-amber-800">Clinical support ไม่ใช่คำสั่งรักษา</span>
+      </div>
+
+      <article class="clinical-card status-evidence rounded-2xl p-4 text-xs space-y-3">
+        <div><h3 class="font-bold text-teal-300 text-base"><i class="fa-solid fa-cloud mr-1"></i>ยาดมสลบชนิดสูดดม (Inhalational anesthetics)</h3><p class="text-slate-400 mt-1">MAC = ความเข้มข้นในถุงลมที่ทำให้ผู้ป่วย 50% ไม่ขยับต่อ surgical incision; ไม่ใช่ “ค่าตั้งสูงสุด” และต้อง titrate ตามผู้ป่วย/monitor จริง</p></div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mobile-gas-grid">
+          <label class="text-slate-400">อายุ (ปี) สำหรับ MAC โดยประมาณ<input id="gasAge" type="number" min="1" max="100" value="40" oninput="runGasCalculator()" class="mt-1 w-full p-3 rounded-xl bg-slate-950 border border-slate-700 text-white text-base" inputmode="decimal"></label>
+          <label class="text-slate-400">End-tidal Sevo (%)<input id="gasSevoEt" type="number" min="0" max="10" step="0.1" value="2" oninput="runGasCalculator()" class="mt-1 w-full p-3 rounded-xl bg-slate-950 border border-slate-700 text-white text-base" inputmode="decimal"></label>
+          <label class="text-slate-400">End-tidal Iso (%)<input id="gasIsoEt" type="number" min="0" max="5" step="0.1" value="0" oninput="runGasCalculator()" class="mt-1 w-full p-3 rounded-xl bg-slate-950 border border-slate-700 text-white text-base" inputmode="decimal"></label>
+          <label class="text-slate-400">End-tidal Des (%)<input id="gasDesEt" type="number" min="0" max="18" step="0.1" value="0" oninput="runGasCalculator()" class="mt-1 w-full p-3 rounded-xl bg-slate-950 border border-slate-700 text-white text-base" inputmode="decimal"></label>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3"><div class="bg-slate-950 rounded-xl p-3"><span class="text-slate-400 block">Sevo 1 MAC*</span><b id="gasSevoMac" class="text-teal-300 text-lg">—</b></div><div class="bg-slate-950 rounded-xl p-3"><span class="text-slate-400 block">Iso 1 MAC*</span><b id="gasIsoMac" class="text-teal-300 text-lg">—</b></div><div class="bg-slate-950 rounded-xl p-3"><span class="text-slate-400 block">Des 1 MAC*</span><b id="gasDesMac" class="text-teal-300 text-lg">—</b></div><div class="bg-slate-950 rounded-xl p-3"><span class="text-slate-400 block">Volatile MAC fraction*</span><b id="gasTotalMac" class="text-teal-300 text-lg">—</b></div></div>
+        <p id="gasMacNote" class="text-amber-200 bg-amber-950/40 rounded-xl p-2 leading-relaxed">—</p>
+      </article>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 clinical-grid text-xs">
+        <article class="clinical-card status-evidence rounded-2xl p-4 space-y-2"><h3 class="font-bold text-teal-300 text-sm">Sevoflurane</h3><p class="text-slate-300"><b>กลไก:</b> volatile anesthetic ออกฤทธิ์หลาย receptor ใน CNS ทำให้ unconsciousness/immobility</p><p class="text-emerald-300"><b>ข้อดี:</b> กลิ่นไม่ฉุน, rapid change in depth, เหมาะกับ mask induction</p><p class="text-rose-300"><b>ข้อเสีย/ระวัง:</b> hypotension, respiratory depression, PONV, trigger MH; MAC ลดลงตามอายุ</p><p class="text-slate-400">1 MAC ที่อายุ 40 ปีใน O₂ ≈ 2.1%; ค่า maintenance label มัก 0.5–3% แต่ไม่ใช่ค่าตั้งตายตัว</p></article>
+        <article class="clinical-card status-evidence rounded-2xl p-4 space-y-2"><h3 class="font-bold text-teal-300 text-sm">Isoflurane</h3><p class="text-slate-300"><b>กลไก:</b> volatile anesthetic ออกฤทธิ์หลาย receptor ใน CNS</p><p class="text-emerald-300"><b>ข้อดี:</b> ใช้ maintenance ได้, potency สูงกว่า sevo/des, ต้นทุนขึ้นกับบริบท</p><p class="text-rose-300"><b>ข้อเสีย/ระวัง:</b> pungency/airway irritation, vasodilation-hypotension, respiratory depression, trigger MH</p><p class="text-slate-400">1 MAC ช่วงอายุ 31–55 ปีใน O₂ ≈ 1.15%; N₂O/opioid ลด MAC requirement</p></article>
+        <article class="clinical-card status-evidence rounded-2xl p-4 space-y-2"><h3 class="font-bold text-teal-300 text-sm">Desflurane</h3><p class="text-slate-300"><b>กลไก:</b> volatile anesthetic ออกฤทธิ์หลาย receptor ใน CNS</p><p class="text-emerald-300"><b>ข้อดี:</b> low blood-gas solubility จึงปรับ depth/emergence ได้เร็ว</p><p class="text-rose-300"><b>ข้อเสีย/ระวัง:</b> airway irritation และ sympathetic response เมื่อเพิ่มเร็ว, hypotension/respiratory depression, trigger MH, environmental impact</p><p class="text-slate-400">1 MAC ที่อายุ 40 ปีใน O₂ ≈ 6.0%; ใช้กับเครื่อง vaporizer ที่รองรับเท่านั้น</p></article>
+      </div>
+
+      <article class="clinical-card status-local rounded-2xl p-4 text-xs space-y-3">
+        <h3 class="font-bold text-amber-300 text-base"><i class="fa-solid fa-vial-circle-check mr-1"></i>เครื่องช่วยผสมยา / เจือจางยา (Real-time)</h3>
+        <p class="text-slate-300">ใช้สูตร <b>C₁V₁ = C₂V₂</b>: กรอกความเข้มข้นยาเดิม, ความเข้มข้นที่ต้องการ และปริมาตรรวม ระบบจะแสดงว่า “ดูดยาเดิมกี่ mL + เติม diluent กี่ mL” ทันที</p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mobile-gas-grid"><label class="text-slate-400">ความเข้มข้นยาเดิม (C₁)<input id="mixStockConc" type="number" min="0.0001" step="any" value="10" oninput="runMixingCalculator()" class="mt-1 w-full p-3 rounded-xl bg-slate-950 border border-slate-700 text-white text-base" inputmode="decimal"></label><label class="text-slate-400">ความเข้มข้นที่ต้องการ (C₂)<input id="mixTargetConc" type="number" min="0.0001" step="any" value="1" oninput="runMixingCalculator()" class="mt-1 w-full p-3 rounded-xl bg-slate-950 border border-slate-700 text-white text-base" inputmode="decimal"></label><label class="text-slate-400">ปริมาตรรวมที่ต้องการ (V₂ mL)<input id="mixFinalVolume" type="number" min="0.1" step="any" value="10" oninput="runMixingCalculator()" class="mt-1 w-full p-3 rounded-xl bg-slate-950 border border-slate-700 text-white text-base" inputmode="decimal"></label></div>
+        <div class="grid grid-cols-2 gap-3"><label class="text-slate-400">หน่วยความเข้มข้น<select id="mixUnit" onchange="runMixingCalculator()" class="mt-1 w-full p-3 rounded-xl bg-slate-950 border border-slate-700 text-white"><option>mg/mL</option><option>mcg/mL</option><option>units/mL</option><option>%</option></select></label><label class="text-slate-400">สารเจือจาง (Diluents)<select id="mixDiluent" onchange="runMixingCalculator()" class="mt-1 w-full p-3 rounded-xl bg-slate-950 border border-slate-700 text-white"><option>ระบุตาม local protocol</option><option>0.9% Sodium chloride</option><option>Dextrose 5%</option><option>Sterile water</option></select></label></div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3"><div class="bg-slate-950 rounded-xl p-4"><span class="text-slate-400 block">1) ดูดยาเดิม</span><b id="mixDrugVolume" class="text-amber-300 text-2xl">—</b></div><div class="bg-slate-950 rounded-xl p-4"><span class="text-slate-400 block">2) เติม diluent</span><b id="mixDiluentVolume" class="text-amber-300 text-2xl">—</b></div></div>
+        <p id="mixInstruction" class="text-slate-300 bg-slate-950 rounded-xl p-3 leading-relaxed">กรอกตัวเลขเพื่อเริ่มคำนวณ</p><p id="mixWarning" class="text-rose-200 bg-rose-950/40 rounded-xl p-3 leading-relaxed">หน่วย C₁ และ C₂ ต้องเหมือนกันเสมอ; ตรวจ compatibility, route, sterility, vial overfill, final concentration, syringe label และ independent double check ตามนโยบายก่อนเตรียมยา</p>
+      </article>
+
+      <article class="clinical-card status-local rounded-2xl p-4 text-xs space-y-2"><h3 class="font-bold text-amber-300 text-sm">N₂O, O₂ และความปลอดภัยของเครื่อง</h3><p class="text-slate-300"><b>N₂O:</b> เป็น adjunct ไม่ใช่ sole anesthetic (MAC มากกว่า 100%); ลด MAC ของ volatile agent แต่ต้องพิจารณา closed gas spaces, vitamin B₁₂ risk, diffusion hypoxia, scavenging และนโยบายสิ่งแวดล้อมของหน่วยงาน</p><p class="text-slate-300"><b>ทุก volatile agent:</b> ต้องตรวจ machine/vaporizer ที่ตรง agent, O₂ analyzer, FiO₂/Et agent/EtCO₂, pressure alarms, circuit และ daily check ตามคู่มือผู้ผลิตก่อนใช้</p></article>
+    </section>
+
+    <section id="sec-airway-ventilation" class="tab-content space-y-4 hidden section-anchor">
+      <div><h2 class="text-lg font-bold text-slate-100"><i class="fa-solid fa-lungs text-sky-400 mr-2"></i>Airway & Ventilation</h2><p class="text-xs text-slate-400 mt-1">ช่วยเตรียมแผนและ cognitive aid; ไม่แทน difficult-airway algorithm ที่อนุมัติโดยโรงพยาบาล</p></div>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 clinical-grid text-xs">
+        <article class="clinical-card status-evidence rounded-2xl p-4 space-y-3"><h3 class="font-bold text-sky-300 text-sm">Airway assessment & plan</h3><ul class="space-y-2 text-slate-300"><li>• ประวัติ difficult airway, OSA, radiation, trauma, aspiration และ previous record</li><li>• ประเมิน mouth opening, neck movement, dentition, front-of-neck access และ physiologic difficulty</li><li>• ระบุ primary technique, backup device, rescue oxygenation และ criteria for awake approach</li><li>• briefing ทีม: role, call-for-help trigger, equipment และ post-extubation plan</li></ul></article>
+        <article class="clinical-card status-local rounded-2xl p-4 space-y-3"><h3 class="font-bold text-amber-300 text-sm">Plan A–D prompt</h3><ol class="space-y-2 text-slate-300 list-decimal list-inside"><li>Plan A: optimize first-pass oxygenation and intubation</li><li>Plan B: oxygenation via supraglottic airway / rescue technique</li><li>Plan C: wake-up/face-mask oxygenation pathway</li><li>Plan D: emergency front-of-neck access under approved local algorithm</li></ol><p class="text-amber-200">อุปกรณ์ ขนาด tube และ threshold ต้องเลือกโดยผู้ปฏิบัติที่มีความชำนาญ ไม่ใช้ค่าคำนวณหน้าเดิมเป็นคำสั่ง</p></article>
+        <article class="clinical-card status-evidence rounded-2xl p-4 space-y-3"><h3 class="font-bold text-teal-300 text-sm">Ventilation & troubleshooting</h3><ul class="space-y-2 text-slate-300"><li>• ใช้ predicted body weight เมื่อกำหนด protective tidal volume; ประเมิน pressure, compliance และ EtCO₂ trend</li><li>• Hypoxemia: ตรวจ patient, tube, circuit, ventilator, gas source และ call for help</li><li>• Hypercapnia: ตรวจ minute ventilation, circuit/absorber, obstruction และ production of CO₂</li><li>• High pressure: exclude kink/secretions/bronchospasm/pneumothorax/position</li></ul></article>
+      </div>
+      <div class="clinical-card status-critical rounded-2xl p-4 text-xs"><b class="text-rose-300">Emergency airway reminder:</b> ให้ความสำคัญกับ oxygenation, early call for help, time awareness, continuous capnography when available และการบันทึก event ตามระบบความปลอดภัยของหน่วยงาน</div>
+    </section>
+
+    <section id="sec-regional" class="tab-content space-y-4 hidden section-anchor">
+      <div><h2 class="text-lg font-bold text-slate-100"><i class="fa-solid fa-location-crosshairs text-fuchsia-400 mr-2"></i>Regional Anesthesia & Multimodal Pain</h2><p class="text-xs text-slate-400 mt-1">ใช้เป็นโครงสร้างการเตรียมเคส ไม่ใช่คู่มือทำ block รายบุคคล</p></div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 clinical-grid text-xs">
+        <article class="clinical-card status-evidence rounded-2xl p-4 space-y-3"><h3 class="font-bold text-fuchsia-300 text-sm">Block safety bundle</h3><ul class="space-y-2 text-slate-300"><li>• ยืนยันตัวผู้ป่วย, ข้าง/ตำแหน่ง, consent, allergy, infection และ neurologic baseline</li><li>• ตรวจ anticoagulant/antiplatelet, renal function และ timing ของ needle/catheter ตาม guideline</li><li>• ใช้ aseptic technique, ultrasound/nerve stimulation ตามความเหมาะสม และ aspiration/incremental injection</li><li>• บันทึก local anesthetic ทั้งหมดทุก route ใน dose ledger และเฝ้าระวัง LAST</li><li>• ตรวจ follow-up: block effect, motor/sensory changes, catheter, falls risk และ escalation plan</li></ul></article>
+        <article class="clinical-card status-local rounded-2xl p-4 space-y-3"><h3 class="font-bold text-amber-300 text-sm">Anticoagulation / neuraxial guardrail</h3><p class="text-slate-300 leading-relaxed">เวลาหยุดยาและ restart แตกต่างตาม drug, low/high dose, renal function, traumatic puncture, catheter และชนิด block จึงไม่ควรสรุปเป็นตัวเลขเดียวใน bedside app</p><p class="text-slate-300 leading-relaxed">ระบบใหม่จะเชื่อมแต่ละยาเข้ากับตารางที่อนุมัติโดยโรงพยาบาล พร้อมเตือนให้ตรวจ guideline ล่าสุดก่อน neuraxial หรือ deep plexus block</p><a href="https://rapm.bmj.com/content/early/2025/09/16/rapm-2024-105766" target="_blank" rel="noopener" class="inline-block text-sky-300 underline">เปิด ASRA antithrombotic guideline</a></article>
+      </div>
+      <article class="clinical-card status-critical rounded-2xl p-4 text-xs space-y-2"><h3 class="font-bold text-rose-300 text-sm">LAST readiness</h3><p class="text-slate-300">ตรวจ lipid emulsion kit, call pathway, airway/resuscitation equipment และ protocol ที่ติดในพื้นที่ก่อนเริ่มฉีดยาชา การรักษาให้ใช้ ASRA checklist ที่หน่วยงานอนุมัติ ไม่ดึงจากค่า dose calculator อัตโนมัติ</p><a href="https://asra.com/news-publications/asra-updates/blog-landing/guidelines/2020/11/01/checklist-for-treatment-of-local-anesthetic-systemic-toxicity" target="_blank" rel="noopener" class="text-rose-300 underline">เปิด ASRA LAST checklist</a></article>
+    </section>
+
+    <section id="sec-clinical-calculators" class="tab-content space-y-4 hidden section-anchor">
+      <div><h2 class="text-lg font-bold text-slate-100"><i class="fa-solid fa-square-root-variable text-emerald-400 mr-2"></i>Clinical Calculators</h2><p class="text-xs text-slate-400 mt-1">ผลลัพธ์เป็นข้อมูลสนับสนุนการทบทวน ไม่ใช่คำสั่ง dose, fluid หรือ transfusion</p></div>
+      <div class="clinical-card status-evidence rounded-2xl p-4 space-y-4 text-xs">
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-3"><label class="text-slate-400">ส่วนสูง (cm)<input id="clinicalHeight" type="number" min="30" max="260" value="165" oninput="runClinicalCalculators()" class="mt-1 w-full p-2 rounded-xl bg-slate-950 border border-slate-700 text-white"></label><label class="text-slate-400">น้ำหนัก (kg)<input id="clinicalWeight" type="number" min="0.5" max="500" value="60" step="0.1" oninput="runClinicalCalculators()" class="mt-1 w-full p-2 rounded-xl bg-slate-950 border border-slate-700 text-white"></label><label class="text-slate-400">อายุ (ปี)<input id="clinicalAge" type="number" min="18" max="120" value="30" oninput="runClinicalCalculators()" class="mt-1 w-full p-2 rounded-xl bg-slate-950 border border-slate-700 text-white"></label><label class="text-slate-400">เพศสำหรับสูตร PBW<select id="clinicalSex" onchange="runClinicalCalculators()" class="mt-1 w-full p-2 rounded-xl bg-slate-950 border border-slate-700 text-white"><option value="male">ชาย</option><option value="female">หญิง</option></select></label><label class="text-slate-400">Creatinine (mg/dL)<input id="clinicalCreatinine" type="number" min="0.1" max="30" value="1" step="0.1" oninput="runClinicalCalculators()" class="mt-1 w-full p-2 rounded-xl bg-slate-950 border border-slate-700 text-white"></label></div>
+        <div class="flex flex-wrap gap-2"><button type="button" onclick="syncClinicalInputs()" class="px-3 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-white font-bold">ใช้ค่าน้ำหนัก/ส่วนสูงจากหน้าเดิม</button><button type="button" onclick="runClinicalCalculators()" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-100">คำนวณใหม่</button></div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3"><div class="bg-slate-950 rounded-xl p-3"><span class="text-slate-400 block">BMI</span><b id="calcBMI" class="text-emerald-300 text-lg">—</b></div><div class="bg-slate-950 rounded-xl p-3"><span class="text-slate-400 block">PBW</span><b id="calcPBW" class="text-emerald-300 text-lg">—</b></div><div class="bg-slate-950 rounded-xl p-3"><span class="text-slate-400 block">IBW</span><b id="calcIBW" class="text-emerald-300 text-lg">—</b></div><div class="bg-slate-950 rounded-xl p-3"><span class="text-slate-400 block">CrCl (Cockcroft–Gault)</span><b id="calcCrCl" class="text-emerald-300 text-lg">—</b></div></div>
+        <p class="text-slate-400 leading-relaxed">PBW/IBW และ CrCl ในหน้านี้เป็นสูตรสำหรับผู้ใหญ่เท่านั้น และมีข้อจำกัดใน obesity, pregnancy, frailty และ unstable creatinine. ผู้ป่วยเด็กต้องใช้สูตร/แนวทางเฉพาะตาม clinical context และยาที่พิจารณา</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs"><article class="clinical-card status-local rounded-2xl p-4"><h3 class="font-bold text-amber-300">Blood & fluid</h3><p class="text-slate-300 mt-2">ABL/EBV และสูตรสารน้ำเดิมคงอยู่ครบในแท็บเดิม แต่การให้เลือด/สารน้ำต้องใช้ physiologic endpoint, blood loss trend, lab และ local massive-transfusion protocol</p></article><article class="clinical-card status-local rounded-2xl p-4"><h3 class="font-bold text-amber-300">Infusion</h3><p class="text-slate-300 mt-2">จะใช้ library ของ pump concentration ที่หน่วยงานรับรองเท่านั้น พร้อม soft/hard limits; ห้ามคำนวณจาก concentration สมมติ</p></article><article class="clinical-card status-evidence rounded-2xl p-4"><h3 class="font-bold text-sky-300">Pediatric</h3><p class="text-slate-300 mt-2">ใช้ pediatric formulary และ age-/weight-specific references; ตัวแสดง ETT/LMA เดิมเป็น estimate สำหรับเตรียมอุปกรณ์เท่านั้น</p></article></div>
+    </section>
+
+    <section id="sec-periop-workflow" class="tab-content space-y-4 hidden section-anchor">
+      <div><h2 class="text-lg font-bold text-slate-100"><i class="fa-solid fa-list-check text-amber-400 mr-2"></i>Perioperative Workflow</h2><p class="text-xs text-slate-400 mt-1">เปลี่ยนข้อมูลอ้างอิงให้ใช้ได้ตั้งแต่ pre-op ถึง PACU โดยไม่แทน consent หรือ clinical judgment</p></div>
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 clinical-grid text-xs"><article class="clinical-card status-evidence rounded-2xl p-4"><h3 class="font-bold text-sky-300 text-sm">Pre-op</h3><ul class="text-slate-300 mt-2 space-y-1"><li>• history, anesthesia record, meds/allergies</li><li>• airway, aspiration, OSA, frailty, functional status</li><li>• optimization, blood plan, consent, NPO assessment</li><li>• reconcile local medication-holding policy</li></ul></article><article class="clinical-card status-local rounded-2xl p-4"><h3 class="font-bold text-amber-300 text-sm">Before induction</h3><ul class="text-slate-300 mt-2 space-y-1"><li>• machine/drug/blood/airway check</li><li>• site/procedure/position/antibiotic verification</li><li>• briefing: risk, access, monitoring, warming, rescue plan</li><li>• documented team roles and escalation</li></ul></article><article class="clinical-card status-evidence rounded-2xl p-4"><h3 class="font-bold text-teal-300 text-sm">Intra-op</h3><ul class="text-slate-300 mt-2 space-y-1"><li>• trend-based monitoring and documentation</li><li>• anesthesia-surgery communication at critical moments</li><li>• blood loss, temperature, PONV/pain, emergence plan</li><li>• handoff readiness begins before closure</li></ul></article><article class="clinical-card status-local rounded-2xl p-4"><h3 class="font-bold text-amber-300 text-sm">PACU / handoff</h3><ul class="text-slate-300 mt-2 space-y-1"><li>• airway, ventilation, hemodynamics, pain/PONV</li><li>• procedure/events/fluids/blood/medications stated aloud</li><li>• regional block and anticoagulant plan</li><li>• criteria for escalation/disposition by local policy</li></ul></article></div>
+      <div class="clinical-card status-legacy rounded-2xl p-4 text-xs"><b class="text-violet-300">ข้อมูล pre-medication เดิม:</b> คงอยู่ครบในแท็บเดิม และถูกระบุเป็น legacy quick reference จนกว่าจะมีการตรวจรับตามนโยบาย perioperative medication management ของโรงพยาบาล</div>
+    </section>
+
+    <section id="sec-special-contexts" class="tab-content space-y-4 hidden section-anchor">
+      <div><h2 class="text-lg font-bold text-slate-100"><i class="fa-solid fa-people-group text-violet-400 mr-2"></i>กลุ่มผู้ป่วยและบริบทเฉพาะ</h2><p class="text-xs text-slate-400 mt-1">แนวทางเตรียมประเด็นสำคัญและลิงก์สู่ protocol เฉพาะสาขา</p></div>
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 clinical-grid text-xs" id="specialContextGrid"></div>
+    </section>
+
+    <section id="sec-emergency-library" class="tab-content space-y-4 hidden section-anchor">
+      <div><h2 class="text-lg font-bold text-slate-100"><i class="fa-solid fa-kit-medical text-rose-400 mr-2"></i>Emergency Library & Cognitive Aids</h2><p class="text-xs text-slate-400 mt-1">เรียงตามการเรียกทีม-หยุดสาเหตุ-ช่วยหายใจ/ไหลเวียน-ใช้ protocol ที่อนุมัติ-บันทึกเหตุการณ์</p></div>
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 clinical-grid text-xs" id="emergencyGrid"></div>
+      <div class="clinical-card status-critical rounded-2xl p-4 text-xs"><b class="text-rose-300">ข้อสำคัญ:</b> หน้าเดิมสำหรับ MH และ LAST ยังอยู่ครบ ระบบใหม่นี้เพิ่มทางลัดไปยัง algorithm/reference เท่านั้น; ไม่แทน crash cart card, drug kit หรือการเรียกทีมฉุกเฉินของสถานพยาบาล</div>
+    </section>
+
+    <section id="sec-checklists" class="tab-content space-y-4 hidden section-anchor">
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3"><div><h2 class="text-lg font-bold text-slate-100"><i class="fa-solid fa-clipboard-check text-lime-400 mr-2"></i>Checklists, Documentation & Handoff</h2><p class="text-xs text-slate-400 mt-1">สถานะ checklist บันทึกไว้ในเบราว์เซอร์เครื่องนี้เท่านั้น และไม่ใช่ medical record</p></div><div class="flex gap-2"><button type="button" onclick="resetChecklistState()" class="px-3 py-2 rounded-xl bg-slate-800 text-xs hover:bg-slate-700">ล้างสถานะหน้านี้</button><button type="button" onclick="window.print()" class="px-3 py-2 rounded-xl bg-lime-700 text-white text-xs hover:bg-lime-600"><i class="fa-solid fa-print mr-1"></i>พิมพ์ reference</button></div></div>
+      <div id="checklistGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 clinical-grid"></div>
+      <div class="clinical-card status-local rounded-2xl p-4 text-xs"><b class="text-amber-300">Documentation guardrail:</b> ใช้แบบฟอร์มที่โรงพยาบาลอนุมัติสำหรับ anesthesia record, consent, controlled-drug documentation, transfusion, incident report และ handoff เสมอ</div>
+    </section>
+
+    <section id="sec-references" class="tab-content space-y-4 hidden section-anchor">
+      <div><h2 class="text-lg font-bold text-slate-100"><i class="fa-solid fa-book-medical text-indigo-400 mr-2"></i>References, Review Status & Versioning</h2><p class="text-xs text-slate-400 mt-1">ทุก clinical card ต้องระบุแหล่งอ้างอิง สถานะตรวจทาน และเจ้าของเนื้อหาก่อนใช้ในงานจริง</p></div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 text-xs" id="referenceGrid"></div>
+      <div class="clinical-card status-local rounded-2xl p-4 text-xs space-y-2"><h3 class="font-bold text-amber-300 text-sm">Release governance</h3><ul class="text-slate-300 space-y-1"><li>• Version: <span class="font-semibold">Clinical Expansion v1.0</span> — 31 October 2026</li><li>• Source verification: public professional guidance checked on 31 October 2026; no claim of hospital endorsement</li><li>• Required before go-live: anesthesiologist, pharmacist, nursing/OR lead, biomedical engineering and quality/safety approval</li><li>• Changes to local concentrations, dose limits, emergency algorithms or medication holding require named approver, effective date and audit trail</li></ul></div>
+    </section>
   </main>
 
   <!-- Complete Drug Detail Modal -->
@@ -580,7 +762,7 @@
       <div class="p-4 overflow-y-auto space-y-3 text-xs flex-1">
         <div id="modalCalcBox" class="p-3 bg-cyan-950/60 rounded-2xl border border-cyan-800 space-y-1">
           <div class="flex items-center justify-between text-cyan-300 font-bold">
-            <span><i class="fa-solid fa-calculator mr-1"></i>ขนาดยาคำนวณเคสนี้:</span>
+            <span><i class="fa-solid fa-calculator mr-1"></i>ผลคำนวณจากข้อมูลเดิม (ต้องยืนยัน):</span>
             <span id="modalCalcDose" class="text-base text-cyan-400 font-extrabold">0 mg</span>
           </div>
           <p id="modalCalcVol" class="text-[11px] text-cyan-400 font-medium">ปริมาตรที่ต้องใช้: 0 mL</p>
@@ -622,26 +804,45 @@
           <span class="font-bold block text-xs text-emerald-400"><i class="fa-solid fa-key mr-1"></i>ยาแก้พิษ / ยาต้านเฉพาะ (Antidote / Specific Reversal):</span>
           <p id="modalAntidote" class="mt-0.5 font-medium text-slate-300">-</p>
         </div>
+
+        <div class="p-3 rounded-2xl border border-sky-900/60 bg-sky-950/30 space-y-1">
+          <div class="flex items-center justify-between gap-2"><span class="font-bold text-xs text-sky-300"><i class="fa-solid fa-shield-heart mr-1"></i>ความปลอดภัยก่อนใช้</span><span id="modalReviewStatus" class="text-[10px] px-2 py-0.5 rounded-full bg-amber-900/50 text-amber-200">ต้องตรวจ local protocol</span></div>
+          <p id="modalDoseBasis" class="text-slate-300 leading-relaxed">-</p>
+          <p id="modalLocalStock" class="text-slate-400 leading-relaxed">-</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <div class="p-3 rounded-2xl bg-slate-950 border border-slate-800"><span class="font-bold text-slate-300 block">การเฝ้าระวัง</span><p id="modalMonitoring" class="text-slate-400 mt-1 leading-relaxed">-</p></div>
+          <div class="p-3 rounded-2xl bg-slate-950 border border-slate-800"><span class="font-bold text-slate-300 block">เด็ก / กลุ่มเปราะบาง</span><p id="modalPediatric" class="text-slate-400 mt-1 leading-relaxed">-</p></div>
+        </div>
+
+        <div class="p-3 rounded-2xl bg-violet-950/30 border border-violet-900/60 space-y-1">
+          <span class="font-bold text-violet-300 block"><i class="fa-solid fa-book-open mr-1"></i>แหล่งอ้างอิงและสถานะข้อมูล</span>
+          <p id="modalEvidence" class="text-slate-300 leading-relaxed">-</p>
+        </div>
       </div>
     </div>
   </div>
 
   <!-- Bottom Navigation Bar (Mobile Optimized) -->
-  <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-slate-950 border-t border-slate-800 z-30 flex justify-around py-2 text-[10px] font-medium text-slate-400 shadow-xl">
-    <button onclick="switchTab('patient-calc')" class="nav-btn flex flex-col items-center space-y-1 active" data-target="patient-calc">
+  <nav class="mobile-bottom-nav md:hidden fixed bottom-0 left-0 right-0 bg-slate-950 border-t border-slate-800 z-30 text-[10px] font-medium text-slate-400 shadow-xl">
+    <button onclick="switchTab('patient-calc')" class="nav-btn mobile-action flex flex-col items-center space-y-1 active" data-target="patient-calc">
       <i class="fa-solid fa-calculator text-base"></i><span>คำนวณยา</span>
     </button>
-    <button onclick="switchTab('fluid-calc')" class="nav-btn flex flex-col items-center space-y-1" data-target="fluid-calc">
+    <button onclick="switchTab('fluid-calc')" class="nav-btn mobile-action flex flex-col items-center space-y-1" data-target="fluid-calc">
       <i class="fa-solid fa-droplet text-base"></i><span>สารน้ำ</span>
     </button>
-    <button onclick="switchTab('drug-db')" class="nav-btn flex flex-col items-center space-y-1" data-target="drug-db">
+    <button onclick="switchTab('drug-db')" class="nav-btn mobile-action flex flex-col items-center space-y-1" data-target="drug-db">
       <i class="fa-solid fa-capsules text-base"></i><span>คลังยา</span>
     </button>
-    <button onclick="switchTab('surgery-guide')" class="nav-btn flex flex-col items-center space-y-1" data-target="surgery-guide">
+    <button onclick="switchTab('surgery-guide')" class="nav-btn mobile-action flex flex-col items-center space-y-1" data-target="surgery-guide">
       <i class="fa-solid fa-user-doctor text-base"></i><span>ผ่าตัด</span>
     </button>
-    <button onclick="switchTab('premed-guide')" class="nav-btn flex flex-col items-center space-y-1" data-target="premed-guide">
+    <button onclick="switchTab('premed-guide')" class="nav-btn mobile-action flex flex-col items-center space-y-1" data-target="premed-guide">
       <i class="fa-solid fa-clock-rotate-left text-base"></i><span>Pre-Med</span>
+    </button>
+    <button onclick="switchTab('gas-monitoring')" class="nav-btn mobile-action flex flex-col items-center space-y-1" data-target="gas-monitoring">
+      <i class="fa-solid fa-wind text-base"></i><span>ก๊าซ/ผสมยา</span>
     </button>
   </nav>
 
@@ -815,10 +1016,382 @@
     // APPLICATION STATE
     let patientMode = 'adult'; // 'adult' or 'child'
 
+    const clinicalSourceLibrary = [
+      { title: 'ASA Standards for Basic Anesthetic Monitoring', label: 'ASA • revised 2025', url: 'https://www.asahq.org/standards-and-practice-parameters/standards-for-basic-anesthetic-monitoring', note: 'Monitoring framework; adopt with local policy and equipment instructions.' },
+      { title: 'ASA Basic Standards for Preanesthesia Care', label: 'ASA • revised 2025', url: 'https://www.asahq.org/standards-and-practice-parameters/basic-standards-for-preanesthesia-care', note: 'Pre-anesthesia evaluation framework.' },
+      { title: 'AHA 2025 Adult Advanced Life Support', label: 'AHA • 2025', url: 'https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines/adult-advanced-life-support', note: 'Resuscitation algorithm source; use current local ACLS/PALS cards at bedside.' },
+      { title: 'ASRA LAST Checklist', label: 'ASRA • 2020', url: 'https://asra.com/news-publications/asra-updates/blog-landing/guidelines/2020/11/01/checklist-for-treatment-of-local-anesthetic-systemic-toxicity', note: 'Use the official current checklist and locally stocked lipid product.' },
+      { title: 'ASRA Antithrombotic Guideline, 5th edition', label: 'ASRA • 2025', url: 'https://rapm.bmj.com/content/early/2025/09/16/rapm-2024-105766', note: 'Neuraxial/deep block decisions require drug-, dose- and patient-specific review.' },
+      { title: 'MHAUS Crisis Resources', label: 'MHAUS', url: 'https://www.mhaus.org/healthcare-professionals/managing-a-crisis/', note: 'Malignant hyperthermia preparedness and crisis resources.' },
+      { title: 'ACOG Postpartum Hemorrhage', label: 'ACOG • reaffirmed 2024', url: 'https://www.acog.org/clinical/clinical-guidance/practice-bulletin/articles/2017/10/postpartum-hemorrhage', note: 'PPH framework; use the local obstetric hemorrhage bundle.' },
+      { title: 'WHO Surgical Safety Checklist resources', label: 'WHO', url: 'https://www.who.int/teams/integrated-health-services/patient-safety/research/safe-surgery/tool-and-resources', note: 'Adapted checklist structure; not a substitute for institutional requirements.' },
+      { title: 'DailyMed drug labeling', label: 'NLM / FDA labeling', url: 'https://dailymed.nlm.nih.gov/', note: 'Use the exact locally stocked product label and local formulary; US labeling may not match Thai products or approvals.' }
+    ];
+
+    const drugReviewDefaults = {
+      'Induction Agent': { doseBasis: 'ขนาดเดิมเป็น quick reference เท่านั้น; เลือก dose ตาม indication, physiologic status, co-medication และการตอบสนองจริงของผู้ป่วย', localStock: 'ตรวจความเข้มข้น/รูปแบบยาและ syringe label กับ stock ของหน่วยงานก่อนดูปริมาตร', pediatric: 'ใช้ pediatric formulary และตรวจ age, weight, maximum dose, route และ monitoring แยกจาก adult', evidence: 'ข้อมูลเดิมคงไว้; ต้องเทียบกับ approved formulary/SmPC และ local protocol ก่อน clinical use' },
+      'Opioids': { doseBasis: 'ปรับตาม opioid tolerance, frailty, organ function และ anesthetic technique; หลีกเลี่ยงการรวม opioid/sedative โดยไม่มี monitoring', localStock: 'ตรวจ mcg กับ mg, dilution และ infusion concentration สองคนก่อนเริ่มใช้', pediatric: 'ต้องใช้ pediatric formulary พร้อม respiratory monitoring และ rescue plan', evidence: 'ข้อมูลเดิมคงไว้; ต้องเทียบกับ approved formulary/SmPC และ local protocol ก่อน clinical use' },
+      'Neuromuscular Blockers': { doseBasis: 'เลือกตาม airway plan, onset, procedure และ organ function; ประเมิน neuromuscular monitoring ไม่ใช้ time elapsed อย่างเดียว', localStock: 'ยืนยัน label, concentration และ availability ของ reversal ก่อนให้ยา', pediatric: 'ตรวจ pediatric indication/weight basis และมี ventilation/rescue capability พร้อม', evidence: 'ข้อมูลเดิมคงไว้; ต้องเทียบกับ approved formulary/SmPC และ local protocol ก่อน clinical use' },
+      'Reversal Agents': { doseBasis: 'เลือกตามระดับ blockade/sedation, time course และ patient-specific risk; re-sedation/recurarization ต้องมีแผนเฝ้าระวัง', localStock: 'ตรวจ concentration และ maximum dose ที่หน่วยงานอนุมัติก่อนคำนวณปริมาตร', pediatric: 'ต้องใช้ pediatric monograph และ observation plan ตามยา/route', evidence: 'ข้อมูลเดิมคงไว้; ต้องเทียบกับ approved formulary/SmPC และ local protocol ก่อน clinical use' },
+      'Vasopressors & Inotropes': { doseBasis: 'titrate ตาม perfusion target, cause ของ hypotension/shock และ invasive monitoring เมื่อเหมาะสม; ไม่ใช้ single bolus rule กับทุกคน', localStock: 'ตรวจความเข้มข้น bolus/infusion, pump library, line compatibility และ extravasation plan', pediatric: 'ใช้ pediatric critical-care/anesthesia formulary และ weight-specific pump guardrails', evidence: 'ข้อมูลเดิมคงไว้; ต้องเทียบกับ approved formulary/SmPC และ local protocol ก่อน clinical use' },
+      'Local Anesthetics': { doseBasis: 'รวม dose ของ local anesthetic ทุก route และคำนึงถึง site vascularity, additives, pregnancy, frailty และ organ dysfunction', localStock: 'บันทึก cumulative mg; ตรวจ vial strength, maximum local policy และ lipid rescue kit ก่อน block', pediatric: 'ต้องใช้ pediatric regional guideline, cumulative-dose ledger และ LAST readiness', evidence: 'ข้อมูลเดิมคงไว้; ต้องเทียบกับ approved formulary/SmPC และ local protocol ก่อน clinical use' },
+      'Uterotonic Agents': { doseBasis: 'เลือกตามสาเหตุของ PPH, hemodynamics และ contraindications; ใช้ obstetric hemorrhage bundle แบบทีม', localStock: 'ตรวจ formulation/route และ emergency tray ตาม protocol สูติกรรมของหน่วยงาน', pediatric: 'ไม่ใช่ pediatric routine medication; ต้องใช้ specialist/obstetric protocol', evidence: 'ข้อมูลเดิมคงไว้; ต้องเทียบกับ approved formulary/SmPC และ local protocol ก่อน clinical use' },
+      'Adjuncts & Special Drugs': { doseBasis: 'ตรวจ indication-specific dose, renal/hepatic adjustment, interactions และ timing ตาม clinical context', localStock: 'ตรวจ concentration, route, infusion/push policy และ compatibility ใน local formulary', pediatric: 'ต้องตรวจ pediatric indication และ monograph เฉพาะยา ไม่ extrapolate จาก adult', evidence: 'ข้อมูลเดิมคงไว้; ต้องเทียบกับ approved formulary/SmPC และ local protocol ก่อน clinical use' }
+    };
+
+    const drugReviewOverrides = {
+      propofol: { monitoring: 'BP, HR, apnea/ventilation, injection site; infusion use ต้องติดตาม metabolic status/PRIS risk ตามบริบท', critical: 'ข้อความเดิมเรื่อง egg/soy allergy คงไว้ตามไฟล์เดิม แต่ต้องตรวจ product monograph และ allergy assessment ปัจจุบันก่อนตัดสินใจ' },
+      thiopental: { monitoring: 'BP, ventilation, extravasation/arterial injection และ airway reactivity', critical: 'ตรวจ porphyria history, formulation และ route ก่อนใช้' },
+      etomidate: { monitoring: 'BP, ventilation, myoclonus และความเหมาะสมของ adrenal-axis context', critical: 'แยก single induction use จาก repeated/infusion exposure ตาม local policy' },
+      ketamine: { monitoring: 'BP/HR, ventilation, secretions, emergence reaction และ psychiatric/cardiac context', critical: 'ประเมิน airway/aspiration risk แม้ spontaneous breathing ยังมีอยู่' },
+      midazolam: { monitoring: 'ระดับ sedation, ventilation, oxygenation, BP และ paradoxical reaction', critical: 'opioid co-administration เพิ่มความเสี่ยง respiratory depression; ต้องมี monitoring/rescue' },
+      dexmedetomidine: { monitoring: 'HR, BP, conduction, sedation level และ hepatic function', critical: 'ระวัง severe bradycardia/heart block และ loading strategy ตาม protocol' },
+      fentanyl: { monitoring: 'RR/EtCO₂, SpO₂, BP/HR, chest-wall rigidity และ cumulative opioid exposure', critical: 'ใช้ separate mcg labeling และ independent check' },
+      morphine: { monitoring: 'RR/EtCO₂, sedation, BP, pruritus/nausea และ renal function', critical: 'active metabolites อาจสะสมใน renal impairment' },
+      pethidine: { monitoring: 'RR, sedation, seizure risk, renal function และ serotonergic co-medications', critical: 'review appropriateness in older adults/renal dysfunction before use' },
+      remifentanil: { monitoring: 'continuous ventilation, BP/HR, pump settings และ postoperative analgesia transition', critical: 'short offset ต้องมี analgesia handover plan ก่อนหยุด infusion' },
+      tramadol: { monitoring: 'sedation, ventilation, seizure risk และ serotonergic interactions', critical: 'ตรวจ CYP/serotonin syndrome risk และ contraindications ตาม monograph' },
+      succinylcholine: { monitoring: 'ECG, potassium-risk context, rhythm, rigidity และ MH signs', critical: 'screen burn/crush/denervation/neuromuscular risk and timing; keep MH plan available' },
+      rocuronium: { monitoring: 'quantitative TOF where available, ventilation และ anaphylaxis signs', critical: 'plan reversal and extubation criteria before administration' },
+      cisatracurium: { monitoring: 'TOF, ventilation, histamine-related response และ temperature/acid-base context', critical: 'do not dose solely by elapsed time' },
+      atracurium: { monitoring: 'TOF, ventilation, BP/bronchospasm/histamine response', critical: 'consider temperature, acid-base state and organ-independent breakdown context' },
+      vecuronium: { monitoring: 'TOF, ventilation และ renal/hepatic function', critical: 'prolonged effect risk requires objective recovery assessment' },
+      neostigmine: { monitoring: 'TOF recovery, HR/secretions, bronchospasm และ re-paralysis risk', critical: 'give only with an antimuscarinic strategy according to approved protocol' },
+      sugammadex: { monitoring: 'TOF recovery, ventilation, anaphylaxis and recurrence of blockade', critical: 'check renal function and hormonal-contraception counseling requirements in local monograph' },
+      atropine: { monitoring: 'HR/rhythm, BP, ischemia risk and response to underlying cause', critical: 'verify concentration and pediatric minimum/maximum limits before drawing up' },
+      glycopyrrolate: { monitoring: 'HR, secretions, urinary retention and anticholinergic burden', critical: 'choose indication and pairing with reversal drug under local protocol' },
+      naloxone: { monitoring: 'ventilation, pain, withdrawal, recurrent respiratory depression and observation duration', critical: 'titrate to ventilation goal, not routine complete analgesia reversal' },
+      flumazenil: { monitoring: 'ventilation, seizure risk, re-sedation and chronic benzodiazepine exposure', critical: 'review seizure/mixed-overdose risk before use' },
+      ephedrine: { monitoring: 'BP, HR/rhythm, response and total cumulative bolus exposure', critical: 'confirm cause of hypotension and avoid substituting for source control' },
+      phenylephrine: { monitoring: 'BP, HR, perfusion and infusion/bolus concentration', critical: 'verify extravasation and line policy; assess bradycardia/perfusion trade-off' },
+      norepinephrine: { monitoring: 'continuous BP when indicated, perfusion, rhythm, line site and pump library', critical: 'prefer approved infusion concentration and escalation pathway' },
+      epinephrine: { monitoring: 'ECG, BP, rhythm, glucose/lactate and response to anaphylaxis/arrest pathway', critical: 'different concentrations have high error risk; require read-back and protocol confirmation' },
+      dopamine: { monitoring: 'ECG/rhythm, BP, perfusion and line site', critical: 'use only for protocol-supported indication and compare alternatives per local critical-care practice' },
+      lidocaine: { monitoring: 'total dose across routes, ECG/CNS symptoms and hepatic/cardiac context', critical: 'separate antiarrhythmic, IV analgesic and local-anesthetic pathways in documentation' },
+      bupivacaine: { monitoring: 'dose ledger, aspiration/incremental injection, ECG/CNS signs and LAST readiness', critical: 'high cardiotoxicity concern: verify dose, concentration and lipid rescue access' },
+      ropivacaine: { monitoring: 'dose ledger, CNS/CV toxicity signs and motor/sensory assessment', critical: 'record total local anesthetic from all sources, not only the block syringe' },
+      oxytocin: { monitoring: 'BP, HR, uterine tone/bleeding and fluid/electrolyte context', critical: 'use obstetric hemorrhage bundle and local infusion/bolus policy' },
+      methergine: { monitoring: 'BP, chest symptoms, uterine response and vascular risk', critical: 'screen hypertensive/vascular contraindications using approved obstetric protocol' },
+      hemabate: { monitoring: 'bronchospasm, oxygenation, GI effects, BP and uterine response', critical: 'screen asthma and other contraindications before administration' },
+      misoprostol: { monitoring: 'temperature, shivering, GI effects, uterine response and bleeding trend', critical: 'route and dose must follow local obstetric bundle' },
+      labetalol: { monitoring: 'BP, HR, ECG, bronchospasm and heart failure context', critical: 'verify asthma/bradycardia/heart-block risk before use' },
+      nicardipine: { monitoring: 'continuous/repeated BP, HR, line/pump concentration and cerebral/cardiac context', critical: 'avoid rapid unmonitored titration; use local infusion guardrails' },
+      esmolol: { monitoring: 'HR, BP, ECG, bronchospasm and response to causative stimulus', critical: 'short action does not remove need to evaluate underlying instability' },
+      dantrolene: { monitoring: 'EtCO₂, temperature, ABG/electrolytes, CK, urine/myoglobin and recurrence after stabilization', critical: 'formulations/reconstitution differ; use stocked product instructions and MHAUS/local MH protocol' },
+      tranexamic: { monitoring: 'bleeding trajectory, renal function, seizure risk and thrombotic context', critical: 'indication/timing differ across trauma, cardiac surgery and obstetrics; use specialty protocol' },
+      ondansetron: { monitoring: 'QT-risk drugs/electrolytes, rhythm, efficacy and constipation/headache', critical: 'review QT-prolongation risk and approved maximum dosing' },
+      dexamethasone: { monitoring: 'glucose, infection considerations, PONV efficacy and repeated exposure', critical: 'indication, timing and diabetic plan should be documented' },
+      metoclopramide: { monitoring: 'extrapyramidal symptoms, sedation, rhythm and GI contraindications', critical: 'review obstruction/perforation and neurologic adverse-effect risk' }
+    };
+
+    const specialContextData = [
+      { title: 'Pediatric / Neonatal', icon: 'fa-child-reaching', summary: 'อายุเป็นปี/เดือนต้องระบุแยก, use pediatric formulary, warming, glucose, family-centered plan', risks: 'airway/rapid desaturation, bradycardia, hypothermia, dose-concentration error', tag: 'PALS + local pediatric protocol' },
+      { title: 'Obstetric', icon: 'fa-baby-carriage', summary: 'left uterine displacement, aspiration/airway plan, neuraxial readiness, maternal-fetal communication', risks: 'spinal hypotension, PPH, high neuraxial block, difficult airway', tag: 'Local obstetric hemorrhage bundle' },
+      { title: 'Cardiac / Vascular', icon: 'fa-heart-pulse', summary: 'define hemodynamic goals, anticoagulation plan, blood conservation and postoperative destination', risks: 'ischemia, arrhythmia, RV failure, anticoagulation reversal', tag: 'Cardiac anesthesia protocol' },
+      { title: 'Neuro', icon: 'fa-brain', summary: 'define neurologic exam, positioning, ventilation/perfusion goals and neuromonitoring communication', risks: 'ICP/perfusion change, seizures, venous air embolism, delayed emergence', tag: 'Neuroanesthesia protocol' },
+      { title: 'Trauma / Massive Hemorrhage', icon: 'fa-truck-medical', summary: 'activate team early, damage-control priorities, warming, blood-product and lab coordination', risks: 'coagulopathy, hypothermia, acidosis, occult injury', tag: 'Massive-transfusion protocol' },
+      { title: 'Burn / Inhalation Injury', icon: 'fa-fire-flame-curved', summary: 'airway trajectory, CO/cyanide context, access, temperature and time-dependent drug response', risks: 'airway edema, hyperkalemia risk, hypothermia, infection', tag: 'Burn-center protocol' },
+      { title: 'Bariatric / OSA', icon: 'fa-bed', summary: 'ramped positioning, preoxygenation, difficult-airway/extubation strategy and postoperative monitoring', risks: 'rapid desaturation, aspiration, opioid sensitivity, hypoventilation', tag: 'OSA and PACU escalation policy' },
+      { title: 'Renal / Hepatic Dysfunction', icon: 'fa-kidneys', summary: 'review clearance, electrolytes/acid-base, coagulopathy and dialysis/volume plan', risks: 'drug accumulation, hyperkalemia, bleeding, fluid imbalance', tag: 'Pharmacy and specialty protocol' },
+      { title: 'Geriatric / Frailty', icon: 'fa-person-cane', summary: 'baseline cognition/function, shared goals, age-adjusted titration and delirium prevention', risks: 'hypotension, delirium, sensitivity to sedatives/opioids, prolonged recovery', tag: 'Frailty/delirium pathway' },
+      { title: 'Non-OR Anesthesia', icon: 'fa-building-shield', summary: 'remote-site equipment, oxygen/suction, staffing, transfer and emergency access before sedation', risks: 'limited access, delayed rescue, monitoring gaps, transport events', tag: 'NORA safety checklist' }
+    ];
+
+    const emergencyData = [
+      { title: 'Anaphylaxis', icon: 'fa-allergies', action: 'หยุด suspected trigger • เรียกทีม • airway/oxygenation/circulation • ใช้ anaphylaxis protocol', source: 'Local anaphylaxis algorithm' },
+      { title: 'Cardiac Arrest', icon: 'fa-heart-circle-bolt', action: 'call code • high-quality CPR/defibrillation • identify reversible causes • use current ACLS/PALS card', source: 'AHA 2025' },
+      { title: 'Malignant Hyperthermia', icon: 'fa-fire', action: 'stop triggers • hyperventilate 100% O₂ • dantrolene/reconstitution per stocked product • labs/ICU/MHAUS', source: 'MHAUS / local MH protocol' },
+      { title: 'LAST', icon: 'fa-shield-heart', action: 'stop injection • call help/LAST kit • airway/oxygenation • lipid rescue per official checklist', source: 'ASRA LAST checklist' },
+      { title: 'Massive Hemorrhage', icon: 'fa-droplet', action: 'activate MTP • source control • warming • blood/lab communication • calcium/coagulation guided by protocol', source: 'Local MTP' },
+      { title: 'Postpartum Hemorrhage', icon: 'fa-person-pregnant', action: 'call obstetric hemorrhage team • assess cause • uterotonic/TXA/blood support under bundle • escalate source control', source: 'ACOG + local PPH bundle' },
+      { title: 'Hyperkalemia', icon: 'fa-bolt', action: 'ECG/confirm sample • stop potassium source • stabilize/shift/remove potassium under emergency protocol', source: 'Local electrolyte emergency protocol' },
+      { title: 'Laryngospasm / Severe Bronchospasm', icon: 'fa-lungs', action: 'call help • remove stimulus • oxygenate/ventilate • differentiate obstruction/bronchospasm and follow airway algorithm', source: 'Local airway algorithm' },
+      { title: 'Venous Air Embolism', icon: 'fa-wind', action: 'alert surgeon • stop entrainment/source control • 100% O₂ • hemodynamic support • position/aspiration only per team protocol', source: 'Specialty protocol' },
+      { title: 'Transfusion Reaction', icon: 'fa-vial-circle-check', action: 'stop transfusion • maintain access with approved fluid • verify identity • notify blood bank • support patient', source: 'Blood bank protocol' },
+      { title: 'OR Fire', icon: 'fa-fire-extinguisher', action: 'stop oxidizer/ignition • remove burning material • extinguish • re-establish airway/assess injury • report event', source: 'Local fire response' },
+      { title: 'Equipment / Oxygen Failure', icon: 'fa-screwdriver-wrench', action: 'call help • hand ventilate with verified O₂ source • change circuit/machine as appropriate • protect patient first', source: 'Manufacturer + local emergency plan' }
+    ];
+
+    const checklistTemplates = [
+      { key: 'preop', title: 'Pre-op readiness', items: ['Identity / procedure / site confirmed', 'History, allergy, medication and anesthesia record reviewed', 'Airway, aspiration, OSA and physiologic risks discussed', 'Consent, blood plan and local medication policy verified'] },
+      { key: 'induction', title: 'Before induction', items: ['Machine, O₂ source, suction and circuit check completed', 'Airway plans A–D and call-for-help trigger stated', 'Monitors, IV access, emergency drugs and blood availability checked', 'Team briefed on positioning, key risks and antibiotics'] },
+      { key: 'regional', title: 'Regional block', items: ['Correct patient / side / block / consent verified', 'Anticoagulant timing and neurologic baseline reviewed', 'Aseptic setup, dose ledger and LAST rescue readiness complete', 'Post-block monitoring and follow-up responsibility stated'] },
+      { key: 'handoff', title: 'OR to PACU/ICU handoff', items: ['Procedure, anesthetic, airway and intra-op events stated', 'Fluids, blood, estimated loss and lab concerns handed over', 'Pain/PONV, block/catheter and anticoagulant plan communicated', 'Escalation criteria and destination ownership confirmed'] },
+      { key: 'crisis', title: 'Crisis readiness', items: ['Emergency call pathway and team roles known', 'Defibrillator, airway rescue and emergency cart accessible', 'Local MH/LAST/hemorrhage resources checked for the area', 'Event documentation and debrief pathway identified'] },
+      { key: 'discharge', title: 'PACU / discharge prompt', items: ['Airway, oxygenation, ventilation and hemodynamics assessed', 'Pain, PONV, temperature and neurologic status reassessed', 'Medication/bleeding/respiratory red flags communicated', 'Discharge criteria applied using local policy'] }
+    ];
+
+    function storageRead(key, fallback) {
+      try {
+        const raw = localStorage.getItem(key);
+        return raw === null ? fallback : JSON.parse(raw);
+      } catch (error) {
+        return fallback;
+      }
+    }
+
+    function storageWrite(key, value) {
+      try {
+        localStorage.setItem(key, JSON.stringify(value));
+      } catch (error) {}
+    }
+
+    function setTheme(theme) {
+      const allowed = ['dark', 'light', 'ocean', 'indigo', 'sage'];
+      const selectedTheme = allowed.includes(theme) ? theme : 'dark';
+      document.body.dataset.theme = selectedTheme;
+      document.querySelectorAll('#themePicker, #quickThemePicker').forEach(control => { control.value = selectedTheme; });
+      storageWrite('anesthesia-master-theme', selectedTheme);
+    }
+
+    function changeFontScale(delta) {
+      const current = Number(storageRead('anesthesia-master-font-scale', 1));
+      const next = Math.min(1.2, Math.max(0.9, Number((current + delta).toFixed(2))));
+      document.documentElement.style.setProperty('--app-font-scale', next);
+      storageWrite('anesthesia-master-font-scale', next);
+    }
+
+    function applySavedPreferences() {
+      setTheme(storageRead('anesthesia-master-theme', 'dark'));
+      const scale = Math.min(1.2, Math.max(0.9, Number(storageRead('anesthesia-master-font-scale', 1)) || 1));
+      document.documentElement.style.setProperty('--app-font-scale', scale);
+    }
+
+    function toggleQuickTools() {
+      const panel = document.getElementById('quickToolsPanel');
+      const button = document.getElementById('quickToolsButton');
+      if (!panel || !button) return;
+      const willOpen = panel.classList.contains('hidden');
+      panel.classList.toggle('hidden', !willOpen);
+      button.setAttribute('aria-expanded', String(willOpen));
+      const icon = button.querySelector('i');
+      if (icon) icon.className = willOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-sun';
+    }
+
+    function syncMobileSearch(value) {
+      const globalSearch = document.getElementById('globalSearch');
+      if (globalSearch) globalSearch.value = value;
+      filterGlobal();
+    }
+
+    function getDrugReview(drug) {
+      const base = drugReviewDefaults[drug.class] || {
+        doseBasis: 'ตรวจ indication, route, patient factors, local formulary และ protocol ก่อนใช้',
+        localStock: 'ตรวจ concentration และ label ของหน่วยงานก่อนคำนวณปริมาตร',
+        pediatric: 'ใช้ pediatric formulary ที่อนุมัติ',
+        evidence: 'ข้อมูลเดิมคงไว้; ต้องมีการทบทวนก่อนใช้จริง'
+      };
+      const override = drugReviewOverrides[drug.id] || {};
+      return {
+        ...base,
+        ...override,
+        monitoring: override.monitoring || 'เฝ้าระวัง physiologic response, adverse effects และ treatment response ตาม indication',
+        critical: override.critical || 'ตรวจ local formulary, concentration, route และ patient-specific contraindications ก่อนใช้'
+      };
+    }
+
+    function runClinicalCalculators() {
+      const height = Number(document.getElementById('clinicalHeight')?.value);
+      const weight = Number(document.getElementById('clinicalWeight')?.value);
+      const age = Number(document.getElementById('clinicalAge')?.value);
+      const creatinine = Number(document.getElementById('clinicalCreatinine')?.value);
+      const sex = document.getElementById('clinicalSex')?.value || 'male';
+      const isValidHeight = height >= 30 && height <= 260;
+      const isValidWeight = weight > 0 && weight <= 500;
+      const isAdultAge = age >= 18 && age <= 120;
+      const isValidCreatinine = creatinine > 0 && creatinine <= 30;
+      const bmi = isValidHeight && isValidWeight ? weight / Math.pow(height / 100, 2) : null;
+      const pbw = isValidHeight ? (sex === 'male' ? 50 : 45.5) + 0.91 * (height - 152.4) : null;
+      const ibw = isValidHeight ? (sex === 'male' ? 50 : 45.5) + 0.9 * (height - 152.4) : null;
+      const crcl = isValidWeight && isAdultAge && isValidCreatinine ? (((140 - age) * weight) / (72 * creatinine)) * (sex === 'female' ? 0.85 : 1) : null;
+      const output = (id, value, suffix) => {
+        const element = document.getElementById(id);
+        if (element) element.textContent = value === null || !Number.isFinite(value) ? '—' : `${Math.max(0, value).toFixed(1)} ${suffix}`;
+      };
+      output('calcBMI', bmi, 'kg/m²');
+      output('calcPBW', pbw, 'kg');
+      output('calcIBW', ibw, 'kg');
+      output('calcCrCl', crcl, 'mL/min');
+    }
+
+    function syncClinicalInputs() {
+      const sourceWeight = document.getElementById('globalWeight');
+      const sourceHeight = document.getElementById('inputHT');
+      const sourceAge = document.getElementById('inputAge');
+      const sourceSex = document.getElementById('inputGender');
+      if (sourceWeight) document.getElementById('clinicalWeight').value = sourceWeight.value;
+      if (sourceHeight) document.getElementById('clinicalHeight').value = sourceHeight.value;
+      if (sourceAge) document.getElementById('clinicalAge').value = patientMode === 'adult' ? sourceAge.value : '';
+      if (sourceSex) document.getElementById('clinicalSex').value = sourceSex.value;
+      runClinicalCalculators();
+    }
+
+    function formatMixVolume(value) {
+      if (!Number.isFinite(value) || value < 0) return '—';
+      return `${value.toFixed(value < 1 ? 2 : 1)} mL`;
+    }
+
+    function runMixingCalculator() {
+      const stock = Number(document.getElementById('mixStockConc')?.value);
+      const target = Number(document.getElementById('mixTargetConc')?.value);
+      const finalVolume = Number(document.getElementById('mixFinalVolume')?.value);
+      const unit = document.getElementById('mixUnit')?.value || '';
+      const diluent = document.getElementById('mixDiluent')?.value || 'diluent';
+      const drugResult = document.getElementById('mixDrugVolume');
+      const diluentResult = document.getElementById('mixDiluentVolume');
+      const instruction = document.getElementById('mixInstruction');
+      const warning = document.getElementById('mixWarning');
+      if (!drugResult || !diluentResult || !instruction || !warning) return;
+      if (!(stock > 0 && target > 0 && finalVolume > 0)) {
+        drugResult.textContent = '—';
+        diluentResult.textContent = '—';
+        instruction.textContent = 'กรอก C₁, C₂ และปริมาตรรวม V₂ เป็นตัวเลขมากกว่า 0';
+        return;
+      }
+      const drugVolume = (target * finalVolume) / stock;
+      const diluentVolume = finalVolume - drugVolume;
+      if (target > stock || diluentVolume < -0.0001) {
+        drugResult.textContent = 'ทำไม่ได้';
+        diluentResult.textContent = '—';
+        instruction.textContent = `ไม่สามารถเจือจางยา ${stock} ${unit} ให้เข้มข้นเป็น ${target} ${unit} ได้ด้วย diluent; ต้องใช้ stock ที่เข้มข้นกว่า หรือทบทวนหน่วย`; 
+        warning.textContent = 'หยุดตรวจสอบ: ค่าเป้าหมายมากกว่าความเข้มข้นยาเดิม หรืออาจกรอกหน่วยผิด (mg/mL กับ mcg/mL ไม่เท่ากัน)';
+        return;
+      }
+      drugResult.textContent = formatMixVolume(drugVolume);
+      diluentResult.textContent = formatMixVolume(Math.max(0, diluentVolume));
+      instruction.textContent = `1) ดูดยาเดิม ${formatMixVolume(drugVolume)}  2) เติม ${diluent} ${formatMixVolume(Math.max(0, diluentVolume))}  3) จะได้ปริมาตรรวม ${finalVolume.toFixed(finalVolume < 1 ? 2 : 1)} mL ที่ความเข้มข้น ${target} ${unit}`;
+      warning.textContent = 'ก่อนใช้: หน่วย C₁/C₂ ต้องเหมือนกัน, ต้องตรวจความเข้ากันได้ของยา-ตัวเจือจาง/route, aseptic technique, vial overfill, final concentration, syringe label และ independent double check ตามนโยบายของหน่วยงาน';
+    }
+
+    function runGasCalculator() {
+      const age = Number(document.getElementById('gasAge')?.value);
+      const sevoEt = Number(document.getElementById('gasSevoEt')?.value) || 0;
+      const isoEt = Number(document.getElementById('gasIsoEt')?.value) || 0;
+      const desEt = Number(document.getElementById('gasDesEt')?.value) || 0;
+      const output = (id, value) => {
+        const element = document.getElementById(id);
+        if (element) element.textContent = Number.isFinite(value) ? `${value.toFixed(2)}%` : '—';
+      };
+      if (!(age >= 1 && age <= 100)) {
+        ['gasSevoMac', 'gasIsoMac', 'gasDesMac', 'gasTotalMac'].forEach(id => { const element = document.getElementById(id); if (element) element.textContent = '—'; });
+        const note = document.getElementById('gasMacNote');
+        if (note) note.textContent = 'กรอกอายุ 1–100 ปีเพื่อดูค่า MAC ประมาณการสำหรับการเรียนรู้; ทารกอายุน้อยกว่า 1 ปีต้องใช้ตาราง product label/pediatric reference เฉพาะ';
+        return;
+      }
+      const correction = Math.pow(10, -0.00269 * (age - 40));
+      const sevoMac = 2.1 * correction;
+      const isoMac = 1.15 * correction;
+      const desMac = 6.0 * correction;
+      const totalMac = (sevoEt / sevoMac) + (isoEt / isoMac) + (desEt / desMac);
+      output('gasSevoMac', sevoMac);
+      output('gasIsoMac', isoMac);
+      output('gasDesMac', desMac);
+      const totalElement = document.getElementById('gasTotalMac');
+      if (totalElement) totalElement.textContent = `${totalMac.toFixed(2)} MAC`;
+      const note = document.getElementById('gasMacNote');
+      if (note) note.textContent = `*ค่าประมาณ age-corrected จากค่าอ้างอิงผู้ใหญ่ 40 ปีใน O₂ (Sevo 2.1%, Iso 1.15%, Des 6.0%). Fraction นี้รวมเฉพาะ volatile agents ที่กรอก ไม่รวม N₂O, opioid, IV anesthetic หรือสภาวะผู้ป่วย จึงห้ามใช้เป็นคำสั่งตั้ง vaporizer/Et agent อัตโนมัติ.`;
+    }
+
+    function renderSpecialContexts() {
+      const container = document.getElementById('specialContextGrid');
+      if (!container) return;
+      container.innerHTML = specialContextData.map(item => `
+        <article class="clinical-card status-local rounded-2xl p-4 space-y-2">
+          <h3 class="font-bold text-violet-300 text-sm"><i class="fa-solid ${item.icon} mr-2"></i>${item.title}</h3>
+          <p class="text-slate-300 leading-relaxed">${item.summary}</p>
+          <p class="text-amber-200"><b>Key risks:</b> ${item.risks}</p>
+          <span class="inline-block text-[10px] px-2 py-1 rounded-full bg-amber-950/60 text-amber-200 border border-amber-900/60">${item.tag}</span>
+        </article>`).join('');
+    }
+
+    function renderEmergencyLibrary() {
+      const container = document.getElementById('emergencyGrid');
+      if (!container) return;
+      container.innerHTML = emergencyData.map(item => `
+        <article class="clinical-card status-critical rounded-2xl p-4 space-y-2">
+          <h3 class="font-bold text-rose-300 text-sm"><i class="fa-solid ${item.icon} mr-2"></i>${item.title}</h3>
+          <p class="text-slate-300 leading-relaxed">${item.action}</p>
+          <span class="inline-block text-[10px] px-2 py-1 rounded-full bg-rose-950/60 text-rose-200 border border-rose-900/60">${item.source}</span>
+        </article>`).join('');
+    }
+
+    function getChecklistState() {
+      return storageRead('anesthesia-master-checklists', {});
+    }
+
+    function renderChecklists() {
+      const container = document.getElementById('checklistGrid');
+      if (!container) return;
+      const state = getChecklistState();
+      container.innerHTML = checklistTemplates.map(template => {
+        const complete = template.items.filter((_, index) => state[`${template.key}-${index}`]).length;
+        return `<article class="clinical-card status-local rounded-2xl p-4 text-xs space-y-3">
+          <div class="flex items-center justify-between gap-2"><h3 class="font-bold text-lime-300 text-sm">${template.title}</h3><span class="text-[10px] px-2 py-1 rounded-full bg-slate-950 text-slate-400">${complete}/${template.items.length}</span></div>
+          <div class="space-y-2">${template.items.map((item, index) => {
+            const key = `${template.key}-${index}`;
+            const checked = Boolean(state[key]);
+            return `<button type="button" onclick="toggleChecklistItem('${template.key}', ${index})" class="w-full flex items-start gap-2 p-2 rounded-xl text-left ${checked ? 'bg-lime-950/40 border border-lime-800 text-lime-100' : 'bg-slate-950 border border-slate-800 text-slate-300'}" aria-pressed="${checked}"><i class="fa-solid ${checked ? 'fa-circle-check text-lime-400' : 'fa-circle text-slate-500'} mt-0.5"></i><span>${item}</span></button>`;
+          }).join('')}</div>
+        </article>`;
+      }).join('');
+    }
+
+    function toggleChecklistItem(group, index) {
+      const state = getChecklistState();
+      const key = `${group}-${index}`;
+      state[key] = !state[key];
+      storageWrite('anesthesia-master-checklists', state);
+      renderChecklists();
+    }
+
+    function resetChecklistState() {
+      if (!window.confirm('ล้างสถานะ checklist ที่บันทึกไว้ในเบราว์เซอร์เครื่องนี้หรือไม่?')) return;
+      storageWrite('anesthesia-master-checklists', {});
+      renderChecklists();
+    }
+
+    function renderReferences() {
+      const container = document.getElementById('referenceGrid');
+      if (!container) return;
+      container.innerHTML = clinicalSourceLibrary.map(source => `
+        <article class="clinical-card status-evidence rounded-2xl p-4 text-xs space-y-2">
+          <span class="text-[10px] text-sky-300 font-bold uppercase tracking-wide">${source.label}</span>
+          <h3 class="font-bold text-slate-100 text-sm">${source.title}</h3>
+          <p class="text-slate-400 leading-relaxed">${source.note}</p>
+          <a href="${source.url}" target="_blank" rel="noopener" class="inline-block text-sky-300 underline">เปิดแหล่งอ้างอิง</a>
+        </article>`).join('');
+    }
+
+    function getExpandedSearchEntries() {
+      return [{ tab: 'gas-monitoring', title: 'ก๊าซดมสลบ & เครื่องช่วยผสมยา', keywords: 'gas inhalational anesthetic sevoflurane isoflurane desflurane oxygen nitrous mac dilution mixing concentration c1v1 c2v2 ผสมยา เจือจาง', summary: 'ค่า MAC โดยประมาณ และเครื่องคำนวณผสมยาแบบทันที' }];
+    }
+
+    function renderExpandedSearchResults(query) {
+      const container = document.getElementById('clinicalSearchResults');
+      if (!container) return;
+      const normalized = String(query || '').trim().toLowerCase();
+      if (!normalized) {
+        container.classList.add('hidden');
+        container.innerHTML = '';
+        return;
+      }
+      const results = getExpandedSearchEntries().filter(item => `${item.title} ${item.keywords} ${item.summary}`.toLowerCase().includes(normalized)).slice(0, 8);
+      container.classList.remove('hidden');
+      container.innerHTML = `<div class="flex items-center justify-between"><span class="font-bold app-accent">ผลการค้นหาส่วนขยาย (${results.length})</span><button type="button" onclick="document.getElementById('globalSearch').value=''; filterGlobal()" class="text-slate-400 underline">ล้าง</button></div>${results.length ? results.map(item => `<button type="button" onclick="switchTab('${item.tab}')" class="search-result w-full p-2 rounded-xl bg-slate-950 hover:bg-slate-800 text-left"><b class="text-slate-200">${item.title}</b><span class="block mt-0.5 text-slate-400">${item.summary}</span></button>`).join('') : '<p class="text-slate-400">ไม่พบหัวข้อขยายที่ตรงกัน ลองค้นหาด้วยชื่อยา โรค หัตถการ หรือคำอังกฤษ</p>'}`;
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
+      applySavedPreferences();
       runAllCalculations();
       renderGroupedDrugs(drugsData);
       renderSurgery(surgeryData);
+      renderSpecialContexts();
+      renderEmergencyLibrary();
+      renderChecklists();
+      renderReferences();
+      runClinicalCalculators();
+      runGasCalculator();
+      runMixingCalculator();
     });
 
     function switchTab(tabId) {
@@ -828,8 +1401,9 @@
 
       document.querySelectorAll('.nav-link, .nav-btn').forEach(el => {
         if(el.dataset.target === tabId) el.classList.add('active');
-        else el.classList.remove('active');
+          else el.classList.remove('active');
       });
+      if (activeSec) window.setTimeout(() => activeSec.scrollIntoView({ behavior: 'smooth', block: 'start' }), 0);
     }
 
     function setPatientMode(mode) {
@@ -997,7 +1571,7 @@
               let maxVol = (maxDose / d.concMgMl).toFixed(1);
 
               return `
-                <div onclick="openDrugModal('${d.id}')" class="bg-slate-900 p-3.5 rounded-2xl border border-slate-800 shadow-sm hover:border-cyan-500 transition cursor-pointer flex flex-col justify-between space-y-2">
+                <button type="button" onclick="openDrugModal('${d.id}')" class="bg-slate-900 p-3.5 rounded-2xl border border-slate-800 shadow-sm hover:border-cyan-500 transition cursor-pointer flex flex-col justify-between space-y-2 text-left" aria-label="เปิดข้อมูล ${d.name}">
                   <div>
                     <div class="flex items-center justify-between">
                       <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-950 text-cyan-400 border border-slate-800">${d.class}</span>
@@ -1016,8 +1590,9 @@
                       <span class="text-slate-500">ปริมาตรเข็มฉีดยา:</span>
                       <span class="font-bold text-sky-300">${minVol} - ${maxVol} mL</span>
                     </div>
+                    <p class="text-[10px] text-amber-300 mt-1">ตรวจ concentration และ dose limit ตาม local formulary ก่อนใช้</p>
                   </div>
-                </div>
+                </button>
               `;
             }).join('')}
           </div>
@@ -1047,7 +1622,7 @@
       document.getElementById('modalBrand').innerText = `Brand Names: ${d.brand}`;
       
       document.getElementById('modalCalcDose').innerText = `${minDose} - ${maxDose} ${d.unit} (เคส ${bw} kg)`;
-      document.getElementById('modalCalcVol').innerText = `ปริมาตรที่ต้องใช้: ${minVol} - ${maxVol} mL (${d.conc})`;
+      document.getElementById('modalCalcVol').innerText = `ปริมาตรจากความเข้มข้นในข้อมูลเดิม: ${minVol} - ${maxVol} mL (${d.conc}) — ต้องตรวจ vial/ampoule จริง`;
 
       document.getElementById('modalOnset').innerText = d.onset;
       document.getElementById('modalDuration').innerText = d.duration;
@@ -1060,6 +1635,13 @@
       document.getElementById('modalAdverse').innerText = d.adverse;
       document.getElementById('modalMetabolism').innerText = d.metabolism;
       document.getElementById('modalAntidote').innerText = d.antidote;
+      const review = getDrugReview(d);
+      document.getElementById('modalReviewStatus').innerText = 'ข้อมูลเดิม + ต้องตรวจ local protocol';
+      document.getElementById('modalDoseBasis').innerText = review.doseBasis;
+      document.getElementById('modalLocalStock').innerText = `${review.localStock} ${review.critical}`;
+      document.getElementById('modalMonitoring').innerText = review.monitoring;
+      document.getElementById('modalPediatric').innerText = review.pediatric;
+      document.getElementById('modalEvidence').innerText = review.evidence;
 
       document.getElementById('drugModal').classList.remove('hidden');
     }
@@ -1115,13 +1697,17 @@
       if(!q) {
         renderGroupedDrugs(drugsData);
         renderSurgery(surgeryData);
+        renderExpandedSearchResults('');
         return;
       }
       const filteredDrugs = drugsData.filter(d => 
         d.name.toLowerCase().includes(q) || 
         d.class.toLowerCase().includes(q) || 
         d.indications.toLowerCase().includes(q) ||
-        d.contra.toLowerCase().includes(q)
+        d.contra.toLowerCase().includes(q) ||
+        d.moa.toLowerCase().includes(q) ||
+        d.adverse.toLowerCase().includes(q) ||
+        d.antidote.toLowerCase().includes(q)
       );
       renderGroupedDrugs(filteredDrugs);
 
@@ -1132,6 +1718,7 @@
         s.rescue.toLowerCase().includes(q)
       );
       renderSurgery(filteredSurgery);
+      renderExpandedSearchResults(q);
     }
   </script>
 </body>
